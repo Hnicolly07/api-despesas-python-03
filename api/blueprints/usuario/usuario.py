@@ -27,7 +27,7 @@ def login():
 
             # Verificar se a senha fornecida corresponde ao hash armazenado no banco de dados
         if bcrypt.verify(senha, user.senha):
-            access_token = create_access_token(identity=nome)
+            access_token = create_access_token(identity=str(user.id))
             return jsonify(access_token=access_token), 200
                 #return render_template('sucesso.html')
         else:

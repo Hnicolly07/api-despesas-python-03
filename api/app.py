@@ -23,17 +23,11 @@ def create_app():
     app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY', 'super-secret') # Configure a chave secreta JWT
 
 
-    # Inicializa o SQLAlchemy com a aplicação Flask
+    # Inicializa o SQLAlchemy e o JWT com a aplicação Flask
     db.init_app(app)
     jwt.init_app(app)
 
-    # Reflete as tabelas do banco de dados
-    with app.app_context():
-        db.reflect()
-        from models import reflected_models
-        reflected_models(db)
-
-    app.register_blueprint(despesa_bp)
+    app.register_blueprint(despesa_bp, url_prefix='/despesa')
     app.register_blueprint(usuario_bp)
     #app.register_blueprint(categoria_bp)
 
